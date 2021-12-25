@@ -3,3 +3,4 @@ djangorestframework
 django-crispy-forms
 django-filter
 django-request
+json2html
