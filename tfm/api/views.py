@@ -49,19 +49,6 @@ def modules(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'POST'])
-def portscan(request):
-    if request.method == 'GET':
-        snippets = DefaultModule.objects.all()
-        serializer = PortScanSerializer(snippets, many=True)
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = PortScanSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def osdetection(request):
@@ -146,4 +133,25 @@ def networkscan(request):
         if serializer.is_valid():
             serializer.save()
             return Response(response, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def portscan(request):
+    if request.method == 'GET':
+        snippets = DefaultModule.objects.all()
+        serializer = PortScanSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        dataJson = json.loads(request.body)
+        print("operation: ", dataJson['operation'])
+        print("target_ip: ", dataJson['target_ip'])
+        print("ports: ", dataJson['ports'])
+        print("ports: ", dataJson['type'])
+
+
+        serializer = PortScanSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
