@@ -3,6 +3,7 @@ from datetime import date
 from rest_framework import serializers
 
 from .models import DefaultModule
+from .models import PortsModule
 
 class ModulesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -14,12 +15,24 @@ class NetworkScanSerializer(serializers.HyperlinkedModelSerializer):
         model = DefaultModule
         fields = ('id', 'operation', 'target_ip')
 
-class PortScanSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = DefaultModule
-        fields = ('id', 'operation', 'input', 'output', 'time')
 
-class OsDetectionSerializer(serializers.HyperlinkedModelSerializer):
+class PortScan:
+    def __init__(self, operation, target_ip, target_ports, ports_status):
+        self.operation= operation
+        self.target_ip = target_ip
+        self.target_ports = target_ports
+        self.ports_status = ports_status
+
+portscan = PortScan(operation="", target_ip="", target_ports=[], ports_status=[])
+
+
+class PortScanSerializer(serializers.Serializer):
+    operation = serializers.CharField(max_length=200)
+    target_ip = serializers.CharField(max_length=200)
+    target_ports = []
+    ports_status = serializers.CharField(max_length=200)
+
+class OsDetectionSerializer():
     class Meta:
         model = DefaultModule
         fields = ('id', 'operation', 'input', 'output', 'time')

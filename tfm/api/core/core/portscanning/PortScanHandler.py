@@ -1,4 +1,7 @@
-from TCPconnect import TCPConnect
+from .TCPconnect import TCPConnect
+from .TCPAckScan import TCPAckScan
+from .tcp.FinScan import FinScan
+
 class PortsScanHandler():
 
     def do_scan(self):
@@ -6,20 +9,26 @@ class PortsScanHandler():
         print(self.operation)
         if self.type and self.type=="TCP":
             if self.operation == "TCPConnect":
-                ports= TCPConnect(self.target_ip, self.ports)
+                ports = TCPConnect(self.target_ip, self.ports)
+                return ports.do_scan()
+            elif self.operation == "TCPACKScan":
+                ports = TCPAckScan(self.target_ip, self.ports)
+                return ports.do_scan()
+            elif self.operation == "FinScan":
+                ports = FinScan(self.target_ip, self.ports)
+                return ports.do_scan()
+            elif self.operation == "NullScan":
+                ports = TCPConnect(self.target_ip, self.ports)
                 return ports.do_scan()
             elif self.operation == "FilterPort":
-                return
-            elif self.operation == "FinScan":
-                return
-            elif self.operation == "NullScan":
-                return
-            elif self.operation == "TCPACKScan":
-                return
+                ports = TCPConnect(self.target_ip, self.ports)
+                return ports.do_scan()
             elif self.operation == "WindowScan":
-                return
+                ports = TCPConnect(self.target_ip, self.ports)
+                return ports.do_scan()
             elif self.operation == "XmasScan":
-                return
+                ports = TCPConnect(self.target_ip, self.ports)
+                return ports.do_scan()
             else:
                 return "TCP scan not supported: TCPConnect/FilterPortsScan/FinScan/NullScan/WindowScan/XmasScan"
         elif self.type and self.type == "UDP":
@@ -42,7 +51,7 @@ class PortsScanHandler():
 def main():
     operation ="TCPConnect"
     target_ip = "192.168.1.26"
-    ports = [1,2,3,4,5,22,23,80,443]
+    ports = [80,443]
     type = "TCP"
     ports = PortsScanHandler(operation, target_ip, ports, type)
     ans = ports.do_scan()

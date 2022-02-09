@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import viewsets
+from .core.core.portscanning import PortScanHandler
 import json
 
 
@@ -147,11 +148,18 @@ def portscan(request):
         print("operation: ", dataJson['operation'])
         print("target_ip: ", dataJson['target_ip'])
         print("ports: ", dataJson['ports'])
-        print("ports: ", dataJson['type'])
-
-
-        serializer = PortScanSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        print("type: ", dataJson['type'])
+        operation = dataJson['operation']
+        target_ip = dataJson['target_ip']
+        ports = dataJson['ports']
+        type = dataJson['type']
+        handler = PortScanHandler.PortsScanHandler(operation, target_ip, ports, type)
+        ans = handler.do_scan()
+        print("Service answer: %s " % ans)
+        serialized = json.dumps(ans)
+        print(serialized)
+        serializer = PortScanSerializer(PortScan(operation=operation, target_ip=target_ip, target_ports=ports, ports_status=serialized))
+        if serializer:
+            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
