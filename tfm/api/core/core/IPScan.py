@@ -11,7 +11,7 @@ class IPScan:
         self.end = end
 
     def scan(self):
-        return sr(IP(dst="192.168.1.63", proto=(0, 255)) / "SCAPY", retry=2, timeout=4)
+        return sr(IP(dst="192.168.1.63", proto=(0, 255)) / "SCAPY", retry=2, timeout=1)
 
     def response_data(self, ans):
         ans.summary()
@@ -20,8 +20,8 @@ class IPScan:
             print("raw ", r.summary())
 
 def main():
-    ip = IPScan("192.168.1.1", 0, 250)
-    ans, unans=ip.scan()
+    ip = IPScan("192.168.1.22", 0, 120)
+    ans, unans =ip.scan()
     ip.response_data(ans)
 
 if __name__=="__main__":

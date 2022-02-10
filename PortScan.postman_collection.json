@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "e39d8349-99c3-4b37-a892-13f92a894995",
+		"name": "PortScan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UDP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"UDPScan\", \"target_ip\":\"192.168.1.40\", \"ports\":[ 222, 66543, 2555], \"type\":\"UDP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FilterPort",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"FilterPort\", \"target_ip\":\"192.168.1.22\", \"ports\":[22, 53, 443 , 80], \"type\":\"TCP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FinScan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"FinScan\", \"target_ip\":\"192.168.1.22\", \"ports\":[22, 53, 443 , 80], \"type\":\"TCP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NullScan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"NullScan\", \"target_ip\":\"192.168.1.22\", \"ports\":[22, 53, 443 , 80], \"type\":\"TCP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TCPACKScan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"UDPScan\", \"target_ip\":\"192.168.1.40\", \"ports\":[ 222, 66543, 2555], \"type\":\"UDP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TCPConnect",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"TCPConnect\", \"target_ip\":\"192.168.1.22\", \"ports\":[22, 53, 443 , 80], \"type\":\"TCP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WindowScan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"WindowScan\", \"target_ip\":\"192.168.1.22\", \"ports\":[22, 53, 443 , 80], \"type\":\"TCP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "XmasPort",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"operation\": \"Xmasport\", \"target_ip\":\"192.168.1.22\", \"ports\":[22, 53, 443 , 80], \"type\":\"TCP\" }"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/portscan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"portscan"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

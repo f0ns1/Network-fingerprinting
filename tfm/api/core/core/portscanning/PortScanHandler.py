@@ -1,12 +1,21 @@
-from .TCPconnect import TCPConnect
-from .TCPAckScan import TCPAckScan
+from .tcp.TCPconnect import TCPConnect
+from .tcp.TCPAckScan import TCPAckScan
 from .tcp.FinScan import FinScan
+from .tcp.Filterport import FilterPort
+from .tcp.NullScan import NullScan
+from .tcp.WindowScan import WindowScan
+from .tcp.Xmasport import Xmasport
+from .udp.UDPScan import UDPScan
 
 class PortsScanHandler():
 
     def do_scan(self):
         print(self.type)
         print(self.operation)
+        if not self.ports:
+            for i in range(65535):
+                self.ports.append(i)
+        print(self.ports)
         if self.type and self.type=="TCP":
             if self.operation == "TCPConnect":
                 ports = TCPConnect(self.target_ip, self.ports)
@@ -18,21 +27,21 @@ class PortsScanHandler():
                 ports = FinScan(self.target_ip, self.ports)
                 return ports.do_scan()
             elif self.operation == "NullScan":
-                ports = TCPConnect(self.target_ip, self.ports)
+                ports = NullScan(self.target_ip, self.ports)
                 return ports.do_scan()
             elif self.operation == "FilterPort":
-                ports = TCPConnect(self.target_ip, self.ports)
+                ports = FilterPort(self.target_ip, self.ports)
                 return ports.do_scan()
             elif self.operation == "WindowScan":
-                ports = TCPConnect(self.target_ip, self.ports)
+                ports = WindowScan(self.target_ip, self.ports)
                 return ports.do_scan()
-            elif self.operation == "XmasScan":
-                ports = TCPConnect(self.target_ip, self.ports)
+            elif self.operation == "Xmasport":
+                ports = Xmasport(self.target_ip, self.ports)
                 return ports.do_scan()
             else:
                 return "TCP scan not supported: TCPConnect/FilterPortsScan/FinScan/NullScan/WindowScan/XmasScan"
         elif self.type and self.type == "UDP":
-            udp = UDPScann()
+            udp = UDPScan(self.target_ip, self.ports)
             return udp.do_scan()
         else:
             return "Operation Type not supported: TCP/UDP"
