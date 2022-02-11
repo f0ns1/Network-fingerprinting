@@ -48,17 +48,19 @@ class OsDetectionSerializer(serializers.Serializer):
 
 
 class DNSSerializer:
-    def __init__(self, operation, target_ip, response):
+    def __init__(self, operation, target_ip, dns_ip, response):
         self.operation= operation
         self.target_ip = target_ip
+        self.dns_ip = dns_ip
         self.response = response
 
-dns_scan = DNSSerializer(operation="", target_ip="", response="")
+dns_scan = DNSSerializer(operation="", target_ip="", dns_ip = "", response="")
 
 
 class DNSScanSerializer(serializers.Serializer):
     operation = serializers.CharField(max_length=200)
     target_ip = serializers.CharField(max_length=200)
+    dns_ip = serializers.CharField(max_length=200)
     response = serializers.CharField(max_length=2000)
 
 class BannerGrabbing:

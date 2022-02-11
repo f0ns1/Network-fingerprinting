@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "d39cb155-bcd9-46bd-a101-4d46c042cb6e",
+		"name": "DNSScan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DNS -  reverse",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation\": \"DNSScan\",\n    \"target_ip\": \"172.67.177.221\",\n    \"dns_ip\": \"8.8.8.8\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/dnsdetection",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"dnsdetection"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DNS - 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation\": \"DNSScan\",\n    \"target_ip\": \"www.linkedin.com\",\n    \"dns_ip\": \"8.8.8.8\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/dnsdetection",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"dnsdetection"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

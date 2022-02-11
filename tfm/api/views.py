@@ -234,21 +234,23 @@ def osdetection(request):
 @api_view(['GET', 'POST'])
 def dnsdetection(request):
     if request.method == 'GET':
-        serializer = DNSScanSerializer(DNSSerializer(operation="", target_ip="", response=""))
+        serializer = DNSScanSerializer(DNSSerializer(operation="", target_ip="", dns_ip="", response=""))
         return Response(serializer.data)
 
     elif request.method == 'POST':
         dataJson = json.loads(request.body)
         print("operation: ", dataJson['operation'])
         print("target_ip: ", dataJson['target_ip'])
+        print("dns_ip: ", dataJson['dns_ip'])
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
-        os = DNSScanHandler(operation, target_ip)
+        dns_ip = dataJson['dns_ip']
+        os = DNSScanHandler(operation, target_ip, dns_ip)
         resp = os.do_scan()
         print(resp)
         serialized = json.dumps(resp)
         print(serialized)
-        serializer = DNSScanSerializer(DNSSerializer(operation=operation, target_ip=target_ip, response=resp))
+        serializer = DNSScanSerializer(DNSSerializer(operation=operation, target_ip=target_ip, dns_ip=dns_ip,response=resp))
         if serializer:
             print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
