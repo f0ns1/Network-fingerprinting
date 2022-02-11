@@ -8,6 +8,11 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from .core.core.portscanning import PortScanHandler
 from .core.core.OSscanning.OSScanHandler import OSScanHandler
+from .core.core.HTTPHeaderScanning.HTTPHeaderScanHandler import HTTPHeaderScanHandler
+from .core.core.BannerGrabbingScanning.BannerGrabbingScanHandler import BannerGrabbinScanHandler
+from .core.core.DNSScanning.DNSScanHandler import DNSScanHandler
+from .core.core.FWDetectionScanning.FWDetectionHandler import FWDetectionHandler
+from .core.core.IPV6Scanning.IPV6ScanHandler import IPV6ScanHandler
 import json
 
 
@@ -27,14 +32,19 @@ class OsDetectionViewSet(viewsets.ModelViewSet):
     serializer_class = OsDetectionSerializer
 class HttpHeaderViewSet(viewsets.ModelViewSet):
     queryset = DefaultModule.objects.all().order_by('id')
-    serializer_class = HttpHeaderSerializer
+    serializer_class = HTTPHeaderSerializer
 class BannerGrabbingViewSet(viewsets.ModelViewSet):
     queryset = DefaultModule.objects.all().order_by('id')
     serializer_class = BannerGrabbingSerializer
 class FirewallDetectionViewSet(viewsets.ModelViewSet):
     queryset = DefaultModule.objects.all().order_by('id')
     serializer_class = FirewallDetectionSerializer
-
+class DNSScanDetectionViewSet(viewsets.ModelViewSet):
+    queryset = DefaultModule.objects.all().order_by('id')
+    serializer_class = DNSScanSerializer
+class IP6ScanViewSet(viewsets.ModelViewSet):
+    queryset = DefaultModule.objects.all().order_by('id')
+    serializer_class = IPV6ScanSerializer
 
 
 @api_view(['GET', 'POST'])
@@ -53,46 +63,92 @@ def modules(request):
 
 
 
+@api_view(['GET', 'POST'])
+def ipv6scan(request):
+    if request.method == 'GET':
+        serializer = IPV6ScanSerializer(IPV6Seliazer(operation="", target_ip="", response=""))
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        dataJson = json.loads(request.body)
+        print("operation: ", dataJson['operation'])
+        print("target_ip: ", dataJson['target_ip'])
+        operation = dataJson['operation']
+        target_ip = dataJson['target_ip']
+        handler = HTTPHeaderScanHandler(operation, target_ip)
+        ans = handler.do_scan()
+        print("Service answer: %s " % ans)
+        serialized = json.dumps(ans)
+        print(serialized)
+        serializer = IPV6ScanSerializer(IPV6Seliazer(operation=operation, target_ip=target_ip, response=serialized))
+        if serializer:
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'POST'])
 def httpheader(request):
     if request.method == 'GET':
-        snippets = DefaultModule.objects.all()
-        serializer = PortScanSerializer(snippets, many=True)
+        serializer = HTTPHeaderSerializer(HTTPHeader(operation="", target_ip="", response=""))
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = PortScanSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        dataJson = json.loads(request.body)
+        print("operation: ", dataJson['operation'])
+        print("target_ip: ", dataJson['target_ip'])
+        operation = dataJson['operation']
+        target_ip = dataJson['target_ip']
+        handler = HTTPHeaderScanHandler(operation, target_ip)
+        ans = handler.do_scan()
+        print("Service answer: %s " % ans)
+        serialized = json.dumps(ans)
+        print(serialized)
+        serializer = HTTPHeaderSerializer(HTTPHeader(operation=operation, target_ip=target_ip, response=serialized))
+        if serializer:
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def bannergrabbing(request):
     if request.method == 'GET':
-        snippets = DefaultModule.objects.all()
-        serializer = PortScanSerializer(snippets, many=True)
+        serializer = BannerGrabbingSerializer(BannerGrabbing(operation="", target_ip="", response=""))
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = PortScanSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        dataJson = json.loads(request.body)
+        print("operation: ", dataJson['operation'])
+        print("target_ip: ", dataJson['target_ip'])
+        operation = dataJson['operation']
+        target_ip = dataJson['target_ip']
+        handler = BannerGrabbinScanHandler(operation, target_ip)
+        ans = handler.do_scan()
+        print("Service answer: %s " % ans)
+        serialized = json.dumps(ans)
+        print(serialized)
+        serializer = BannerGrabbingSerializer(BannerGrabbing(operation=operation, target_ip=target_ip, response=serialized))
+        if serializer:
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def firewalldetection(request):
     if request.method == 'GET':
-        snippets = DefaultModule.objects.all()
-        serializer = PortScanSerializer(snippets, many=True)
+        serializer = FirewallDetectionSerializer(FWDetection(operation="", target_ip="", response=""))
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = PortScanSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
+        dataJson = json.loads(request.body)
+        print("operation: ", dataJson['operation'])
+        print("target_ip: ", dataJson['target_ip'])
+        operation = dataJson['operation']
+        target_ip = dataJson['target_ip']
+        handler = FWDetectionHandler(operation, target_ip)
+        ans = handler.do_scan()
+        print("Service answer: %s " % ans)
+        serialized = json.dumps(ans)
+        print(serialized)
+        serializer = FirewallDetectionSerializer(FWDetection(operation=operation, target_ip=target_ip, response=serialized))
+        if serializer:
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -170,6 +226,29 @@ def osdetection(request):
         serialized = json.dumps(resp)
         print(serialized)
         serializer = OsDetectionSerializer(OSDetection(operation=operation, target_ip=target_ip, response=resp))
+        if serializer:
+            print(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def dnsdetection(request):
+    if request.method == 'GET':
+        serializer = DNSScanSerializer(DNSSerializer(operation="", target_ip="", response=""))
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        dataJson = json.loads(request.body)
+        print("operation: ", dataJson['operation'])
+        print("target_ip: ", dataJson['target_ip'])
+        operation = dataJson['operation']
+        target_ip = dataJson['target_ip']
+        os = DNSScanHandler(operation, target_ip)
+        resp = os.do_scan()
+        print(resp)
+        serialized = json.dumps(resp)
+        print(serialized)
+        serializer = DNSScanSerializer(DNSSerializer(operation=operation, target_ip=target_ip, response=resp))
         if serializer:
             print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

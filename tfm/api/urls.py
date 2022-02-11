@@ -17,8 +17,10 @@ urlpatterns = [
     path('operations/networkscan', views.networkscan, name='networkscan'),
     path('operations/portscan', views.portscan, name='portscan'),
     path('operations/osdetection', views.osdetection, name='osdetection'),
+    path('operations/dnsdetection', views.dnsdetection, name='dnsdetection'),
     path('operations/httpheader', views.httpheader, name='httpheader'),
     path('operations/bannergrabbing', views.bannergrabbing, name='bannergrabbing'),
-    path('operations/firewalldetection', views.firewalldetection, name='firewalldetection'),
+    path('operations/fwdetection', views.firewalldetection, name='firewalldetection'),
+    path('operations/ipv6scan', views.ipv6scan, name='ipv6scan'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

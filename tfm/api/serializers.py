@@ -46,16 +46,75 @@ class OsDetectionSerializer(serializers.Serializer):
     target_ip = serializers.CharField(max_length=200)
     response = serializers.CharField(max_length=2000)
 
-class HttpHeaderSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = DefaultModule
-        fields = ('id', 'operation', 'input', 'output', 'time')
-class BannerGrabbingSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = DefaultModule
-        fields = ('id', 'operation', 'input', 'output', 'time')
 
-class FirewallDetectionSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = DefaultModule
-        fields = ('id', 'operation', 'input', 'output', 'time')
+class DNSSerializer:
+    def __init__(self, operation, target_ip, response):
+        self.operation= operation
+        self.target_ip = target_ip
+        self.response = response
+
+dns_scan = DNSSerializer(operation="", target_ip="", response="")
+
+
+class DNSScanSerializer(serializers.Serializer):
+    operation = serializers.CharField(max_length=200)
+    target_ip = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=2000)
+
+class BannerGrabbing:
+    def __init__(self, operation, target_ip, response):
+        self.operation= operation
+        self.target_ip = target_ip
+        self.response = response
+
+banner_grabbing = BannerGrabbing(operation="", target_ip="", response="")
+
+
+class BannerGrabbingSerializer(serializers.Serializer):
+    operation = serializers.CharField(max_length=200)
+    target_ip = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=2000)
+
+class HTTPHeader:
+    def __init__(self, operation, target_ip, response):
+        self.operation= operation
+        self.target_ip = target_ip
+        self.response = response
+
+http_header = HTTPHeader(operation="", target_ip="", response="")
+
+
+class HTTPHeaderSerializer(serializers.Serializer):
+    operation = serializers.CharField(max_length=200)
+    target_ip = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=2000)
+
+class FWDetection:
+    def __init__(self, operation, target_ip, response):
+        self.operation= operation
+        self.target_ip = target_ip
+        self.response = response
+
+fw_detection = FWDetection(operation="", target_ip="", response="")
+
+
+class FirewallDetectionSerializer(serializers.Serializer):
+    operation = serializers.CharField(max_length=200)
+    target_ip = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=2000)
+
+
+class IPV6Seliazer:
+    def __init__(self, operation, target_ip, response):
+        self.operation= operation
+        self.target_ip = target_ip
+        self.response = response
+
+fw_detection = FWDetection(operation="", target_ip="", response="")
+
+
+class IPV6ScanSerializer(serializers.Serializer):
+    operation = serializers.CharField(max_length=200)
+    target_ip = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=2000)
+
