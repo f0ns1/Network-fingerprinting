@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import viewsets
 from .core.core.portscanning import PortScanHandler
+from .core.core.OSscanning.OSScanHandler import OSScanHandler
 import json
 
 
@@ -51,19 +52,7 @@ def modules(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'POST'])
-def osdetection(request):
-    if request.method == 'GET':
-        snippets = DefaultModule.objects.all()
-        serializer = PortScanSerializer(snippets, many=True)
-        return Response(serializer.data)
 
-    elif request.method == 'POST':
-        serializer = PortScanSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def httpheader(request):
@@ -139,8 +128,7 @@ def networkscan(request):
 @api_view(['GET', 'POST'])
 def portscan(request):
     if request.method == 'GET':
-        snippets = DefaultModule.objects.all()
-        serializer = PortScanSerializer(snippets, many=True)
+        serializer = PortScanSerializer(PortScan(operation="", target_ip="", target_ports=[], ports_status=[]))
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -159,6 +147,29 @@ def portscan(request):
         serialized = json.dumps(ans)
         print(serialized)
         serializer = PortScanSerializer(PortScan(operation=operation, target_ip=target_ip, target_ports=ports, ports_status=serialized))
+        if serializer:
+            print(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def osdetection(request):
+    if request.method == 'GET':
+        serializer = OsDetectionSerializer(OSDetection(operation="", target_ip="", response=""))
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        dataJson = json.loads(request.body)
+        print("operation: ", dataJson['operation'])
+        print("target_ip: ", dataJson['target_ip'])
+        operation = dataJson['operation']
+        target_ip = dataJson['target_ip']
+        os = OSScanHandler(operation, target_ip)
+        resp = os.do_scan()
+        print(resp)
+        serialized = json.dumps(resp)
+        print(serialized)
+        serializer = OsDetectionSerializer(OSDetection(operation=operation, target_ip=target_ip, response=resp))
         if serializer:
             print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

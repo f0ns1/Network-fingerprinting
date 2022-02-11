@@ -32,10 +32,20 @@ class PortScanSerializer(serializers.Serializer):
     target_ports = []
     ports_status = serializers.CharField(max_length=200)
 
-class OsDetectionSerializer():
-    class Meta:
-        model = DefaultModule
-        fields = ('id', 'operation', 'input', 'output', 'time')
+class OSDetection:
+    def __init__(self, operation, target_ip, response):
+        self.operation= operation
+        self.target_ip = target_ip
+        self.response = response
+
+osdetection = OSDetection(operation="", target_ip="", response="")
+
+
+class OsDetectionSerializer(serializers.Serializer):
+    operation = serializers.CharField(max_length=200)
+    target_ip = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=2000)
+
 class HttpHeaderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DefaultModule
