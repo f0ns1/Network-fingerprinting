@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "70be4e3c-50a1-4f7f-afa1-ab3ae331fb41",
+		"name": "IPV6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Multicast",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"operation\": \"IPV6\",\n    \"target_ip\": \"multicast\",\n    \"timeout\": 20 \n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/ipv6scan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"ipv6scan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IP Address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"operation\": \"IPV6\",\n    \"target_ip\": \"fe80::8278:71ff:fe60:d602\",\n    \"timeout\": 20 \n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/ipv6scan",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"ipv6scan"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

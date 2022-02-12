@@ -75,7 +75,8 @@ def ipv6scan(request):
         print("target_ip: ", dataJson['target_ip'])
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
-        handler = HTTPHeaderScanHandler(operation, target_ip)
+        timeout = dataJson['timeout']
+        handler = IPV6ScanHandler(operation, target_ip, int(timeout))
         ans = handler.do_scan()
         print("Service answer: %s " % ans)
         serialized = json.dumps(ans)
