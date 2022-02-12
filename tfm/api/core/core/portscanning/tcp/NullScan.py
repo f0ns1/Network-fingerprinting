@@ -22,10 +22,8 @@ class NullScan:
                     print("Closed")
                     output.append(str(dst_port) + ":" + "Closed")
             elif (null_scan_resp.haslayer(ICMP)):
-                if (int(null_scan_resp.getlayer(ICMP).type) == 3 and int(null_scan_resp.getlayer(ICMP).code) in [1, 2,
-                                                                                                                 3, 9,
-                                                                                                                 10,
-                                                                                                                 13]):
+                if (int(null_scan_resp.getlayer(ICMP).type) == 3 and
+                        int(null_scan_resp.getlayer(ICMP).code) in [1, 2, 3, 9, 10, 13]):
                     print("Filtered")
                     output.append(str(dst_port) + ":" + "Filtered")
         return output

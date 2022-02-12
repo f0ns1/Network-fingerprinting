@@ -24,8 +24,8 @@ class FilterPort:
                     print("closed port")
                     output.append(str(dst_port) + ":" + "Closed port")
             elif (stealth_scan_resp.haslayer(ICMP)):
-                if (int(stealth_scan_resp.getlayer(ICMP).type) == 3 and int(stealth_scan_resp.getlayer(ICMP).code) in [
-                    1, 2, 3, 9, 10, 13]):
+                if (int(stealth_scan_resp.getlayer(ICMP).type) == 3
+                        and int(stealth_scan_resp.getlayer(ICMP).code) in [ 1, 2, 3, 9, 10, 13]):
                     print("Filterd port")
                     output.append(str(dst_port) + ":" + "Filtered port")
         return output

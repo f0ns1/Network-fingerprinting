@@ -138,7 +138,7 @@ def bannergrabbing(request):
 @api_view(['GET', 'POST'])
 def firewalldetection(request):
     if request.method == 'GET':
-        serializer = FirewallDetectionSerializer(FWDetection(operation="", target_ip="", response=""))
+        serializer = FirewallDetectionSerializer(FWDetection(operation="", target_ip="", ports=[22,80], response=""))
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -147,12 +147,11 @@ def firewalldetection(request):
         print("target_ip: ", dataJson['target_ip'])
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
-        handler = FWDetectionHandler(operation, target_ip)
+        ports = dataJson['ports']
+        handler = FWDetectionHandler(operation, target_ip, ports)
         ans = handler.do_scan()
         print("Service answer: %s " % ans)
-        serialized = json.dumps(ans)
-        print(serialized)
-        serializer = FirewallDetectionSerializer(FWDetection(operation=operation, target_ip=target_ip, response=serialized))
+        serializer = FirewallDetectionSerializer(FWDetection(operation=operation, target_ip=target_ip, ports=ports, response=ans))
         if serializer:
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

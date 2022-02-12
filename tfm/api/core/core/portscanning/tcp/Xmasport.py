@@ -24,10 +24,8 @@ class Xmasport:
                     print("Closed")
                     output.append(str(dst_port) + ":" + "Closed")
             elif (xmas_scan_resp.haslayer(ICMP)):
-                if (int(xmas_scan_resp.getlayer(ICMP).type) == 3 and int(xmas_scan_resp.getlayer(ICMP).code) in [1, 2,
-                                                                                                                 3, 9,
-                                                                                                                 10,
-                                                                                                                 13]):
+                if (int(xmas_scan_resp.getlayer(ICMP).type) == 3 and
+                        int(xmas_scan_resp.getlayer(ICMP).code) in [1, 2, 3, 9, 10, 13]):
                     print("Filtered")
                     output.append(str(dst_port) + ":" + "Filtered")
         return output

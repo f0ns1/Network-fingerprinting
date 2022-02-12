@@ -20,7 +20,7 @@ class TCPConnect:
                 output.append(str(dst_port) + ":" + "Closed")
             elif(tcp_connect_scan_resp.haslayer(TCP)):
                 if(tcp_connect_scan_resp.getlayer(TCP).flags == 0x12):
-                    ans, unans = sr(IP(dst=self.dst_ip)/TCP(sport=self.src_port,dport=dst_port,flags="AR"),timeout=2)
+                    ans, unans = sr(IP(dst=self.dst_ip)/TCP(sport=self.src_port, dport=dst_port, flags="AR"),timeout=2)
                     output.append(str(dst_port) + ":" + "Open")
                 elif (tcp_connect_scan_resp.getlayer(TCP).flags == 0x14):
                     output.append(str(dst_port) + ":" + "Closed")

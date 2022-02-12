@@ -97,17 +97,19 @@ class HTTPHeaderSerializer(serializers.Serializer):
 
 
 class FWDetection:
-    def __init__(self, operation, target_ip, response):
+    def __init__(self, operation, target_ip, ports, response):
         self.operation= operation
         self.target_ip = target_ip
+        self.ports = ports
         self.response = response
 
-fw_detection = FWDetection(operation="", target_ip="", response="")
+fw_detection = FWDetection(operation="", target_ip="", ports=[], response="")
 
 
 class FirewallDetectionSerializer(serializers.Serializer):
     operation = serializers.CharField(max_length=200)
     target_ip = serializers.CharField(max_length=200)
+    ports =[]
     response = serializers.CharField(max_length=2000)
 
 
@@ -117,7 +119,7 @@ class IPV6Seliazer:
         self.target_ip = target_ip
         self.response = response
 
-fw_detection = FWDetection(operation="", target_ip="", response="")
+fw_detection = IPV6Seliazer(operation="", target_ip="", response="")
 
 
 class IPV6ScanSerializer(serializers.Serializer):
