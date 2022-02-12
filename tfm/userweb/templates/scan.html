@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<style>
+
+</style>
+<head>
+
+    {% block title %}<title> Fingerprinting over Networks </title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'app.js' %}"></script>
+</head>
+
+<body >
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-2">
+            {% block sidebar %}
+            <ul class="sidenav" id="bar">
+                <li><a href="{% url 'index' %}"> Home</a></li>
+                <li><a href="{% url 'scan' %}"> Scan </a></li>
+                <li><a href="{% url 'reports' %}"> Reports</a></li>
+            </ul>
+            {% endblock %}
+        </div>
+        <div align="center" class="container-fluid">
+                <div class="card" style="border: red;">
+                    <h2 class="card-header" style="color: red;"><strong>ADVANCE NETWORK FINGERPRINTING</strong></h2>
+                        <div class="card-body">
+                            <h2 class="card-title" style="color: red;"><strong>TEST</strong></h2>
+                                <p class="card-text" style="color: white;"><strong>MODULE</strong> </p>
+                        </div>
+                    <br>
+                    <h1 class="card-title" style="color: white;"><b><strong>TITLE</strong></b></h1>
+                </div>
+
+            </div>
+        <div class="col-sm-30">
+
+             <div align="left">
+                 <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="openNav()">Open</button>
+             </div>
+
+        </div>
+        <div align="center" class="opacityform">
+
+                {% block content %}
+                <div class="col-md-12">
+                    <label for="dorSelect" class="form-label">Select Scan type</label>
+                    <select id="dorSelect" class="form-select" >
+                        <option selected>Choose...</option>
+                            <option id ="1">Network-scan</option>
+                            <option id ="2">Port-scan</option>
+                            <option id ="3">OS-detection</option>
+                            <option id ="4">FW-detection</option>
+                            <option id ="5">Banner-grabbing</option>
+                            <option id ="6">DNS-detection</option>
+                            <option id ="7">HTTP-header</option>
+                            <option id ="8">IPV6-Scan</option>
+                    </select>
+                </div>
+                {% endblock %}
+                <div class="col-md-12">
+                    <br>
+                </div>
+                <div class="col-md-12">
+                    <label for="generate" class="form-label">Execute operation</label>
+                    <button id="generate"  onclick="generateGoogleDork()" class="form-select btn btn-primary">generate</button>
+                </div>
+            </div>
+
+        </div>
+        <br>
+
+
+    </div>
+</div>
+</body>
+
+</html>
