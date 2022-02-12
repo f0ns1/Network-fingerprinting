@@ -117,7 +117,7 @@ def httpheader(request):
 @api_view(['GET', 'POST'])
 def bannergrabbing(request):
     if request.method == 'GET':
-        serializer = BannerGrabbingSerializer(BannerGrabbing(operation="", target_ip="", response=""))
+        serializer = BannerGrabbingSerializer(BannerGrabbing(operation="BannerGrabbing", target_ip="192.168.1.22", ports=[], response=""))
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -126,12 +126,11 @@ def bannergrabbing(request):
         print("target_ip: ", dataJson['target_ip'])
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
-        handler = BannerGrabbinScanHandler(operation, target_ip)
+        ports = dataJson['ports']
+        handler = BannerGrabbinScanHandler(operation, target_ip, ports)
         ans = handler.do_scan()
         print("Service answer: %s " % ans)
-        serialized = json.dumps(ans)
-        print(serialized)
-        serializer = BannerGrabbingSerializer(BannerGrabbing(operation=operation, target_ip=target_ip, response=serialized))
+        serializer = BannerGrabbingSerializer(BannerGrabbing(operation=operation, target_ip=target_ip, ports=ports, response=ans))
         if serializer:
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

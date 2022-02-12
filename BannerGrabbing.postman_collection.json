@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "7394bed8-e3f1-45a7-b31a-9c251dab91e8",
+		"name": "BannerGrabbing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "IP",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation\": \"BannerGrabbing\",\n    \"target_ip\": \"192.168.1.1\",\n    \"ports\": [22, 21, 80, 9090, 443]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/bannergrabbing",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"bannergrabbing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IP-2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation\": \"BannerGrabbing\",\n    \"target_ip\": \"192.168.1.1\",\n    \"ports\": [22, 21, 80, 9090, 443]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/bannergrabbing",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"bannergrabbing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "IP-3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation\": \"BannerGrabbing\",\n    \"target_ip\": \"192.168.1.1\",\n    \"ports\": [22, 21, 80, 9090, 443]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/bannergrabbing",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"bannergrabbing"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "domain",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation\": \"BannerGrabbing\",\n    \"target_ip\": \"192.168.1.1\",\n    \"ports\": [22, 21, 80, 9090, 443]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/bannergrabbing",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"bannergrabbing"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
