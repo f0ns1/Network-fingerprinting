@@ -90,21 +90,26 @@ def ipv6scan(request):
 @api_view(['GET', 'POST'])
 def httpheader(request):
     if request.method == 'GET':
-        serializer = HTTPHeaderSerializer(HTTPHeader(operation="", target_ip="", response=""))
+        serializer = HTTPHeaderSerializer(HTTPHeader(operation="HTTP_Headers", target_ip="www.somedomain.com", path="/", response=""))
         return Response(serializer.data)
 
     elif request.method == 'POST':
         dataJson = json.loads(request.body)
         print("operation: ", dataJson['operation'])
         print("target_ip: ", dataJson['target_ip'])
+        print("path: ", dataJson['path'])
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
-        handler = HTTPHeaderScanHandler(operation, target_ip)
+        path = dataJson['path']
+        port = 80
+        if "port" in [dataJson]:
+            port = dataJson['port']
+        handler = HTTPHeaderScanHandler(operation, target_ip, path, port)
         ans = handler.do_scan()
         print("Service answer: %s " % ans)
         serialized = json.dumps(ans)
         print(serialized)
-        serializer = HTTPHeaderSerializer(HTTPHeader(operation=operation, target_ip=target_ip, response=serialized))
+        serializer = HTTPHeaderSerializer(HTTPHeader(operation=operation, target_ip=target_ip, path=path, response=serialized))
         if serializer:
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

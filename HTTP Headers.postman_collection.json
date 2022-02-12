@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "03ff41f7-8af5-48ab-939e-c285d14f4ec7",
+		"name": "HTTP Headers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "internet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"operation\": \"HTTP_Headers\",\n    \"target_ip\": \"www.linkedin.com\",\n    \"path\": \"/\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/httpheader",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"httpheader"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kali_machine",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"operation\": \"HTTP_Headers\",\n    \"target_ip\": \"192.168.1.22\",\n    \"path\": \"/\",\n    \"port\": 80\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/httpheader",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"httpheader"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "internet https port",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"operation\": \"HTTP_Headers\",\n    \"target_ip\": \"www.marca.com\",\n    \"path\": \"/\",\n    \"port\": 443\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/operations/httpheader",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"operations",
+						"httpheader"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

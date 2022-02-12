@@ -78,18 +78,21 @@ class BannerGrabbingSerializer(serializers.Serializer):
     response = serializers.CharField(max_length=2000)
 
 class HTTPHeader:
-    def __init__(self, operation, target_ip, response):
+    def __init__(self, operation, target_ip, path, response):
         self.operation= operation
         self.target_ip = target_ip
         self.response = response
+        self.path= path
 
-http_header = HTTPHeader(operation="", target_ip="", response="")
+http_header = HTTPHeader(operation="", target_ip="", path= "",response="")
 
 
 class HTTPHeaderSerializer(serializers.Serializer):
     operation = serializers.CharField(max_length=200)
     target_ip = serializers.CharField(max_length=200)
-    response = serializers.CharField(max_length=2000)
+    path = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=5000)
+
 
 class FWDetection:
     def __init__(self, operation, target_ip, response):
