@@ -56,7 +56,7 @@ function http_header_execute(){
             this.responseText;
        }
     }
-    var obj1 = { operation : x[0].value, target_ip : x[1].value, path : x[2].value }
+    var obj1 = { operation : x[0].value, target_ip : x[1].value, path : x[2].value, port: x[3].value }
     xmlhttp.send(JSON.stringify(obj1));
 
 }
