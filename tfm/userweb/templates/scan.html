@@ -99,7 +99,7 @@
                             self._SLEEP) </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
+                        <p> <strong>Service output:</strong> </p>
                         <img src="../static/img/PV6-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
                         <br><br>
                         <p> <strong>API service:</strong> </p>
@@ -151,7 +151,7 @@
                             <span> http_request(self.target_ip, self.path, self.port) </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
+                        <p> <strong>Service output:</strong> </p>
                         <img src="../static/img/HTTP-header.png" alt="network-scan execution" style="align: center; width:80%;"/>
                         <br>
                         <p> <strong>API service:</strong> </p>
@@ -210,7 +210,7 @@
                             /DNS(rd=1, qd=DNSQR(qname=self.target_ip, qtype=qtype))) </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
+                        <p> <strong>Service output:</strong> </p>
                         <img src="../static/img/DNS_detection.png" alt="DNS execution" style="align: center; width:80%;"/>
                         <br>
                         <p> <strong>API service:</strong> </p>
@@ -255,27 +255,28 @@
         <div align="center" class="opacityform" id="Banner-grabbing_explain" style="display: none">
                 <div class="" style="width: 80%">
                     <article>
-                        <span> <h3>Network Scan</h3> </span>
+                        <span> <h3>Banner Grabbing </h3> </span>
                         <br>
-                        <span>With python3 SCAPY library</span>
-                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <span>With python3 sockets library</span>
+                        <p> Using connection over TCP protocol for each input ports the service recollect all banners that the target machine banners</p>
                         <br>
                         <div class="redform">
-                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                            <span> socket.socket(socket.AF_INET, socket.SOCK_STREAM) </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
-                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <p> <strong>Service output:</strong> </p>
+                        <img src="../static/img/Banner-Grabbing.png" alt="network-scan execution" style="align: center; width:80%;"/>
                         <br>
                         <p> <strong>API service:</strong> </p>
                         <div align="left" style="width: 50%;">
-                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">POST /api/operations/bannergrabbing HTTP/1.1</p>
                             <p style="align: left;">Host: 127.0.0.1:8000</p>
                             <p style="align: left;">Content-Type: application/json</p>
-                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">Content-Length: 108</p>
                             <p style="align: left;">{</p>
-                            <p style="align: left;">"operation": "network-scan",</p>
-                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">    "operation": "BannerGrabbing",</p>
+                            <p style="align: left;">    "target_ip": "192.168.1.22",</p>
+                            <p style="align: left;">    "ports": [22, 21, 80, 9090, 443]</p>
                             <p style="align: left;">}</p>
                         </div>
                     </article>
@@ -289,6 +290,8 @@
                         <strong>operation:</strong> <input type="text" id="operation_bg" name="operation" value="network-scan"><br>
                         <br>
                         <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_bg" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="ports_bg" name="target_ip" value="[80, 443, 22, 21]">
                         <br><br>
                     </div>
                 </form>
@@ -309,25 +312,28 @@
                         <span> <h3>Network Scan</h3> </span>
                         <br>
                         <span>With python3 SCAPY library</span>
-                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <p> Using AYN-ACK/RST request over TCP layer for each input port detect if the target server/network fas a FW </p>
                         <br>
                         <div class="redform">
-                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                            <p><strong>Reuest:</strong></p>
+                            <span> sr1(IP(dst=self.dst_ip) / TCP(sport=self.src_port, dport=dst_port, flags="S"), timeout=2) </span>
+                            <br>
+                            <span> sr(IP(dst=self.dst_ip) / TCP(sport=self.src_port, dport=dst_port, flags="R"), timeout=2) </span>
+                            <p><strong>Interprete response:</strong></p>
+                            <span> (int(stealth_scan_resp.getlayer(ICMP).type) == 3
+                                and int(stealth_scan_resp.getlayer(ICMP).code) in [ 1, 2, 3, 9, 10, 13]): </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
-                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <p> <strong>Service output:</strong> </p>
+                        <img src="../static/img/FW-detection.png" alt="network-scan execution" style="align: center; width:80%;"/>
                         <br>
                         <p> <strong>API service:</strong> </p>
                         <div align="left" style="width: 50%;">
-                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">POST /api/operations/fwdetection HTTP/1.1</p>
                             <p style="align: left;">Host: 127.0.0.1:8000</p>
                             <p style="align: left;">Content-Type: application/json</p>
-                            <p style="align: left;">Content-Length: 86</p>
-                            <p style="align: left;">{</p>
-                            <p style="align: left;">"operation": "network-scan",</p>
-                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
-                            <p style="align: left;">}</p>
+                            <p style="align: left;">Content-Length: 84</p>
+                            <p style="align: left;">{"operation": "FWDetection", "target_ip": "192.168.1.22", "ports": [22,80,443, 53] }</p>
                         </div>
                     </article>
                 </div>
@@ -337,9 +343,11 @@
                 <form id="FW-detection_form">
                     <div align="left" style="width: 50%">
                         <br>
-                        <strong>operation:</strong> <input type="text" id="operation_fw" name="operation" value="network-scan"><br>
+                        <strong>operation:</strong> <input type="text" id="operation_fw" name="operation" value="FW-detection"><br>
                         <br>
-                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_fw" name="target_ip" value="192.168.1.1/24">
+                        <strong>target_ip:</strong> <input type="text" id="target_ip_fw" name="target_ip" value="192.168.1.22">
+                        <br><br>
+                        <strong>ports:</strong> <input type="text" id="ports_fw" name="target_ip" value="[22, 80, 443]">
                         <br><br>
                     </div>
                 </form>
@@ -366,7 +374,7 @@
                             <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
+                        <p> <strong>Service output:</strong> </p>
                         <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
                         <br>
                         <p> <strong>API service:</strong> </p>
@@ -417,7 +425,7 @@
                             <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
+                        <p> <strong>Service output:</strong> </p>
                         <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
                         <br>
                         <p> <strong>API service:</strong> </p>
@@ -468,7 +476,7 @@
                             <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
                         </div>
                         <br>
-                        <p> Service output: </p>
+                        <p> <strong>Service output:</strong> </p>
                         <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
                         <br>
                         <p> <strong>API service:</strong> </p>

@@ -119,7 +119,6 @@ def bannergrabbing(request):
     if request.method == 'GET':
         serializer = BannerGrabbingSerializer(BannerGrabbing(operation="BannerGrabbing", target_ip="192.168.1.22", ports=[], response=""))
         return Response(serializer.data)
-
     elif request.method == 'POST':
         dataJson = json.loads(request.body)
         print("operation: ", dataJson['operation'])
@@ -127,6 +126,12 @@ def bannergrabbing(request):
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
         ports = dataJson['ports']
+        print("ports ", ports)
+        try:
+            ports = eval(ports)
+            print("ports ", ports)
+        except:
+            pass
         handler = BannerGrabbinScanHandler(operation, target_ip, ports)
         ans = handler.do_scan()
         print("Service answer: %s " % ans)
@@ -148,6 +153,12 @@ def firewalldetection(request):
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
         ports = dataJson['ports']
+        print("ports ", ports)
+        try:
+            ports = eval(ports)
+            print("ports ", ports)
+        except:
+            pass
         handler = FWDetectionHandler(operation, target_ip, ports)
         ans = handler.do_scan()
         print("Service answer: %s " % ans)
@@ -200,6 +211,12 @@ def portscan(request):
         operation = dataJson['operation']
         target_ip = dataJson['target_ip']
         ports = dataJson['ports']
+        print("ports ", ports)
+        try:
+            ports = eval(ports)
+            print("ports ", ports)
+        except:
+            pass
         type = dataJson['type']
         handler = PortScanHandler.PortsScanHandler(operation, target_ip, ports, type)
         ans = handler.do_scan()

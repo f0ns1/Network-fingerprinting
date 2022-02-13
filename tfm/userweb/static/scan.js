@@ -81,7 +81,7 @@ function dns_detection_execute(){
 function banner_grabbing_execute(){
     var x = document.getElementById("Banner-grabbing_form").elements;
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/networkscan");
+    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/bannergrabbing");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 201) {
@@ -89,7 +89,7 @@ function banner_grabbing_execute(){
             this.responseText;
        }
     }
-    var obj1 = { operation : x[0].value, target_ip : x[1].value}
+    var obj1 = { operation : x[0].value, target_ip : x[1].value, ports : x[2].value}
     alert(obj1)
     xmlhttp.send(JSON.stringify(obj1));
 
@@ -98,7 +98,7 @@ function banner_grabbing_execute(){
 function fw_detection_execute(){
     var x = document.getElementById("FW-detection_form").elements;
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/networkscan");
+    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/fwdetection");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 201) {
@@ -106,7 +106,7 @@ function fw_detection_execute(){
             this.responseText;
        }
     }
-    var obj1 = { operation : x[0].value, target_ip : x[1].value}
+    var obj1 = { operation : x[0].value, target_ip : x[1].value, ports: x[2].value}
     xmlhttp.send(JSON.stringify(obj1));
 
 }
