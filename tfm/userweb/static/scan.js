@@ -16,7 +16,7 @@ function network_scan_execute(){
 function port_scan_execute(){
     var x = document.getElementById("Port-scan_form").elements;
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/networkscan");
+    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/portscan");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 201) {
@@ -24,9 +24,8 @@ function port_scan_execute(){
             this.responseText;
        }
     }
-    var obj1 = { operation : x[0].value, target_ip : x[1].value}
+    var obj1 = { operation : x[0].value, target_ip : x[1].value, ports : x[2].value, type : x[3].value}
     xmlhttp.send(JSON.stringify(obj1));
-
 }
 
 function ipv6_scan_execute(){
@@ -114,7 +113,7 @@ function fw_detection_execute(){
 function os_detection_execute(){
     var x = document.getElementById("OS-detection_form").elements;
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/networkscan");
+    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/osdetection");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 201) {
