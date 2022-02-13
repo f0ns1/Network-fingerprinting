@@ -16,7 +16,8 @@
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'app.js' %}"></script>
+    <script src="{% static 'app.js' %}" ></script>
+    <script src="{% static 'scan.js' %}" ></script>
 </head>
 
 <body >
@@ -35,13 +36,13 @@
         </div>
         <div align="center" class="container-fluid">
                 <div class="card" style="border: red;">
-                    <strong><h2 class="card-header" style="color: red;">ADVANCE NETWORK FINGERPRINTING</h2></strong>
+                    <h2 class="card-header" style="color: red;"><strong>ADVANCE NETWORK FINGERPRINTING</strong></h2>
                         <div class="card-body">
                             <h2 class="card-title" style="color: red;"><strong></strong></h2>
-                                <h2><p class="card-title" style="color: #FFF8DC;"><strong>SCAN BY MODULES</strong> </p></h2>
+                                <h2><p class="card-title" style="color: #FFD700;"><strong>SCAN BY MODULES</strong> </p></h2>
                         </div>
                     <br>
-                    <h2 class="card-text" style="color: #FFF8DC;"><b><strong>CHOOSE MODULE</strong></b></h2>
+                    <h2 class="card-text" style="color: #FFD700;"><b><strong>CHOOSE MODULE</strong></b></h2>
                 </div>
 
             </div>
@@ -84,6 +85,363 @@
                 <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="showExecute()">Execute</button>
         </div>
         <br><br>
+        <div align="center" class="opacityform" id="IPV6-Scan_explain" style="display: none">
+                <div class="" style="width: 80%">
+                    <article>
+                        <span> <h3>Network Scan</h3> </span>
+                        <br>
+                        <span>With python3 SCAPY library</span>
+                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <br>
+                        <div class="redform">
+                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                        </div>
+                        <br>
+                        <p> Service output: </p>
+                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <br>
+                        <p> <strong>API service:</strong> </p>
+                        <div align="left" style="width: 50%;">
+                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">Host: 127.0.0.1:8000</p>
+                            <p style="align: left;">Content-Type: application/json</p>
+                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">{</p>
+                            <p style="align: left;">"operation": "network-scan",</p>
+                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">}</p>
+                        </div>
+                    </article>
+                </div>
+        </div>
+        <div align="center" class="opacityform" id="IPV6-Scan_execute" style="display: none">
+            <p > <strong>PERFORM OPERATION: </strong></p>
+                <form id="IPV6-Scan_form">
+                    <div align="left" style="width: 50%">
+                        <br>
+                        <strong>operation:</strong> <input type="text" id="operation_ipv6" name="operation" value="network-scan"><br>
+                        <br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_ipv6" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                    </div>
+                </form>
+                <div>
+                <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="ipv6_scan_execute()">Execute operation</button>
+                </div>
+                    <br>
+                <div class="redform" style="width:90%;">
+
+                    <p style="align: left;" id="IPV6-Scan_response" value=""></p>
+
+                </div>
+                <br><br>
+        </div>
+        <div align="center" class="opacityform" id="HTTP-header_explain" style="display: none">
+                <div class="" style="width: 80%">
+                    <article>
+                        <span> <h3>Network Scan</h3> </span>
+                        <br>
+                        <span>With python3 SCAPY library</span>
+                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <br>
+                        <div class="redform">
+                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                        </div>
+                        <br>
+                        <p> Service output: </p>
+                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <br>
+                        <p> <strong>API service:</strong> </p>
+                        <div align="left" style="width: 50%;">
+                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">Host: 127.0.0.1:8000</p>
+                            <p style="align: left;">Content-Type: application/json</p>
+                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">{</p>
+                            <p style="align: left;">"operation": "network-scan",</p>
+                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">}</p>
+                        </div>
+                    </article>
+                </div>
+        </div>
+        <div align="center" class="opacityform" id="HTTP-header_execute" style="display: none">
+            <p > <strong>PERFORM OPERATION: </strong></p>
+                <form id="HTTP-header_form">
+                    <div align="left" style="width: 50%">
+                        <br>
+                        <strong>operation:</strong> <input type="text" id="operation_http" name="operation" value="network-scan"><br>
+                        <br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_http" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                    </div>
+                </form>
+                <div>
+                <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="http_header_execute()">Execute operation</button>
+                </div>
+                    <br>
+                <div class="redform" style="width:90%;">
+
+                    <p style="align: left;" id="HTTP-header_response" value=""></p>
+
+                </div>
+                <br><br>
+        </div>
+        <div align="center" class="opacityform" id="DNS-detection_explain" style="display: none">
+                <div class="" style="width: 80%">
+                    <article>
+                        <span> <h3>Network Scan</h3> </span>
+                        <br>
+                        <span>With python3 SCAPY library</span>
+                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <br>
+                        <div class="redform">
+                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                        </div>
+                        <br>
+                        <p> Service output: </p>
+                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <br>
+                        <p> <strong>API service:</strong> </p>
+                        <div align="left" style="width: 50%;">
+                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">Host: 127.0.0.1:8000</p>
+                            <p style="align: left;">Content-Type: application/json</p>
+                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">{</p>
+                            <p style="align: left;">"operation": "network-scan",</p>
+                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">}</p>
+                        </div>
+                    </article>
+                </div>
+        </div>
+        <div align="center" class="opacityform" id="DNS-detection_execute" style="display: none">
+            <p > <strong>PERFORM OPERATION: </strong></p>
+                <form id="DNS-detection_form">
+                    <div align="left" style="width: 50%">
+                        <br>
+                        <strong>operation:</strong> <input type="text" id="operation_dns" name="operation" value="network-scan"><br>
+                        <br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_dns" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                    </div>
+                </form>
+                <div>
+                <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="dns_detection_execute()">Execute operation</button>
+                </div>
+                    <br>
+                <div class="redform" style="width:90%;">
+
+                    <p style="align: left;" id="DNS-detection_response" value=""></p>
+
+                </div>
+                <br><br>
+        </div>
+        <div align="center" class="opacityform" id="Banner-grabbing_explain" style="display: none">
+                <div class="" style="width: 80%">
+                    <article>
+                        <span> <h3>Network Scan</h3> </span>
+                        <br>
+                        <span>With python3 SCAPY library</span>
+                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <br>
+                        <div class="redform">
+                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                        </div>
+                        <br>
+                        <p> Service output: </p>
+                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <br>
+                        <p> <strong>API service:</strong> </p>
+                        <div align="left" style="width: 50%;">
+                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">Host: 127.0.0.1:8000</p>
+                            <p style="align: left;">Content-Type: application/json</p>
+                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">{</p>
+                            <p style="align: left;">"operation": "network-scan",</p>
+                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">}</p>
+                        </div>
+                    </article>
+                </div>
+        </div>
+        <div align="center" class="opacityform" id="Banner-grabbing_execute" style="display: none">
+            <p > <strong>PERFORM OPERATION: </strong></p>
+                <form id="Banner-grabbing_form">
+                    <div align="left" style="width: 50%">
+                        <br>
+                        <strong>operation:</strong> <input type="text" id="operation_bg" name="operation" value="network-scan"><br>
+                        <br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_bg" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                    </div>
+                </form>
+                <div>
+                <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="banner_grabbing_execute()">Execute operation</button>
+                </div>
+                    <br>
+                <div class="redform" style="width:90%;">
+
+                    <p style="align: left;" id="Banner-grabbing_response" value=""></p>
+
+                </div>
+                <br><br>
+        </div>
+        <div align="center" class="opacityform" id="FW-detection_explain" style="display: none">
+                <div class="" style="width: 80%">
+                    <article>
+                        <span> <h3>Network Scan</h3> </span>
+                        <br>
+                        <span>With python3 SCAPY library</span>
+                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <br>
+                        <div class="redform">
+                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                        </div>
+                        <br>
+                        <p> Service output: </p>
+                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <br>
+                        <p> <strong>API service:</strong> </p>
+                        <div align="left" style="width: 50%;">
+                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">Host: 127.0.0.1:8000</p>
+                            <p style="align: left;">Content-Type: application/json</p>
+                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">{</p>
+                            <p style="align: left;">"operation": "network-scan",</p>
+                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">}</p>
+                        </div>
+                    </article>
+                </div>
+        </div>
+        <div align="center" class="opacityform" id="FW-detection_execute" style="display: none">
+            <p > <strong>PERFORM OPERATION: </strong></p>
+                <form id="FW-detection_form">
+                    <div align="left" style="width: 50%">
+                        <br>
+                        <strong>operation:</strong> <input type="text" id="operation_fw" name="operation" value="network-scan"><br>
+                        <br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_fw" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                    </div>
+                </form>
+                <div>
+                <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="fw_detection_execute()">Execute operation</button>
+                </div>
+                    <br>
+                <div class="redform" style="width:90%;">
+
+                    <p style="align: left;" id="FW-detection_response" value=""></p>
+
+                </div>
+                <br><br>
+        </div>
+        <div align="center" class="opacityform" id="OS-detection_explain" style="display: none">
+                <div class="" style="width: 80%">
+                    <article>
+                        <span> <h3>Network Scan</h3> </span>
+                        <br>
+                        <span>With python3 SCAPY library</span>
+                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <br>
+                        <div class="redform">
+                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                        </div>
+                        <br>
+                        <p> Service output: </p>
+                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <br>
+                        <p> <strong>API service:</strong> </p>
+                        <div align="left" style="width: 50%;">
+                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">Host: 127.0.0.1:8000</p>
+                            <p style="align: left;">Content-Type: application/json</p>
+                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">{</p>
+                            <p style="align: left;">"operation": "network-scan",</p>
+                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">}</p>
+                        </div>
+                    </article>
+                </div>
+        </div>
+        <div align="center" class="opacityform" id="OS-detection_execute" style="display: none">
+            <p > <strong>PERFORM OPERATION: </strong></p>
+                <form id="OS-detection_form">
+                    <div align="left" style="width: 50%">
+                        <br>
+                        <strong>operation:</strong> <input type="text" id="operation_os" name="operation" value="network-scan"><br>
+                        <br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_os" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                    </div>
+                </form>
+                <div>
+                <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="os_detection_execute()">Execute operation</button>
+                </div>
+                    <br>
+                <div class="redform" style="width:90%;">
+
+                    <p style="align: left;" id="OS-detection_response" value=""></p>
+
+                </div>
+                <br><br>
+        </div>
+        <div align="center" class="opacityform" id="Port-scan_explain" style="display: none">
+                <div class="" style="width: 80%">
+                    <article>
+                        <span> <h3>Network Scan</h3> </span>
+                        <br>
+                        <span>With python3 SCAPY library</span>
+                        <p> Using ARP protocol detect all devices connected to a specific input network provided by user</p>
+                        <br>
+                        <div class="redform">
+                            <span> srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1/24"), timeout=5) </span>
+                        </div>
+                        <br>
+                        <p> Service output: </p>
+                        <img src="../static/img/Network-scan.png" alt="network-scan execution" style="align: center; width:80%;"/>
+                        <br>
+                        <p> <strong>API service:</strong> </p>
+                        <div align="left" style="width: 50%;">
+                            <p style="align: left;">POST /api/operations/networkscan HTTP/1.1</p>
+                            <p style="align: left;">Host: 127.0.0.1:8000</p>
+                            <p style="align: left;">Content-Type: application/json</p>
+                            <p style="align: left;">Content-Length: 86</p>
+                            <p style="align: left;">{</p>
+                            <p style="align: left;">"operation": "network-scan",</p>
+                            <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
+                            <p style="align: left;">}</p>
+                        </div>
+                    </article>
+                </div>
+        </div>
+        <div align="center" class="opacityform" id="Port-scan_execute" style="display: none">
+            <p > <strong>PERFORM OPERATION: </strong></p>
+                <form id="Port-scan_form">
+                    <div align="left" style="width: 50%">
+                        <br>
+                        <strong>operation:</strong> <input type="text" id="operation_port" name="operation" value="network-scan"><br>
+                        <br>
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_port" name="target_ip" value="192.168.1.1/24">
+                        <br><br>
+                    </div>
+                </form>
+                <div>
+                <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="port_scan_execute()">Execute operation</button>
+                </div>
+                    <br>
+                <div class="redform" style="width:90%;">
+
+                    <p style="align: left;" id="Port-scan_response" value=""></p>
+
+                </div>
+                <br><br>
+        </div>
         <div align="center" class="opacityform" id="Network-scan_explain" style="display: none">
                 <div class="" style="width: 80%">
                     <article>
@@ -105,7 +463,6 @@
                             <p style="align: left;">Host: 127.0.0.1:8000</p>
                             <p style="align: left;">Content-Type: application/json</p>
                             <p style="align: left;">Content-Length: 86</p>
-
                             <p style="align: left;">{</p>
                             <p style="align: left;">"operation": "network-scan",</p>
                             <p style="align: left;">"target_ip": "192.168.1.0/24"</p>
@@ -119,9 +476,9 @@
                 <form id="Network-scan_form">
                     <div align="left" style="width: 50%">
                         <br>
-                        <strong>operation:</strong> <input type="text" id="operation" name="operation" value="network-scan"><br>
+                        <strong>operation:</strong> <input type="text" id="operation" name="operation_network" value="network-scan"><br>
                         <br>
-                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip" name="target_ip" value="192.168.1.1/24">
+                        <strong>target_ip/target_subnet:</strong> <input type="text" id="target_ip_network" name="target_ip" value="192.168.1.1/24">
                         <br><br>
                     </div>
                 </form>
@@ -136,6 +493,7 @@
                 </div>
                 <br><br>
         </div>
+
         <br>
 
 

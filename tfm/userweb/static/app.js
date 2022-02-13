@@ -6,28 +6,10 @@ function closeNav() {
   document.getElementById("bar").style.width = "0";
 }
 
-function network_scan_execute(){
-    var x = document.getElementById("Network-scan_form").elements;
-    for (i=0; i < x.length; i++ ){
-        alert("values "+x[i].value)
-    }
-    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/networkscan");
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 201) {
-            document.getElementById("Network-scan_response").innerHTML =
-            this.responseText;
-            alert(xmlhttp.text)
-       }
-    }
-    var obj1 = { operation : x[0].value, target_ip : x[1].value}
-    alert(obj1)
-    xmlhttp.send(JSON.stringify(obj1));
 
-}
 
 function changeScan() {
+  hidden_all()
   var x = document.getElementById("scanSelect").value;
   document.getElementById("scanType").innerHTML = "You selected: " + x;
   if(x != ""){
@@ -57,20 +39,15 @@ function showExecute() {
 }
 function hidden_all(){
     var x = document.getElementById("scanSelect").value;
-    var ele = document.getElementById(x+"_explain");
-    ele.style.display = "none";
-    var exe = document.getElementById(x+"_execute");
-    exe.style.display = "none";
-}
-function hidden(){
-    var ele = document.getElementById("toggleText");
-    var text = document.getElementById("displayText");
-    if (ele.style.display == "block") {
-        ele.style.display = "none";
-        text.innerHTML = "show";
-    }
-    else {
-        ele.style.display = "block";
-        text.innerHTML = "hide";
+    var object =["Network-scan","Port-scan","OS-detection","FW-detection","Banner-grabbing","DNS-detection","HTTP-header","IPV6-Scan"]
+    for (x in object){
+        var ele = document.getElementById(object[x]+"_explain");
+        if(ele){
+            ele.style.display = "none";
+        }
+        var exe = document.getElementById(object[x]+"_execute");
+        if(exe){
+            exe.style.display = "none";
+        }
     }
 }
