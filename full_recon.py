@@ -6,6 +6,7 @@ import time
 from json2html import *
 
 def do_post(url,data):
+    print(url, " data ", data)
     return requests.post(url, json = data)
     
 def network_scan(ip):
@@ -34,27 +35,11 @@ def get_host(target_ip):
 def get_ports(host):
     url = "http://127.0.0.1:8000/api/operations/portscan"
     json_out=[]
-    data = { "operation": "TCPConnect", "target_ip": host, "ports":[22, 53, 443 , 80], "type":"TCP" }
-    ports = do_post(url, data)
-    json_out.append(ports.text)
-    data = {"operation": "TCPACKScan", "target_ip": host, "ports": [22, 53, 443, 80], "type": "TCP"}
-    ports = do_post(url, data)
-    json_out.append(ports.text)
-    data = {"operation": "FinScan", "target_ip": host, "ports": [22, 53, 443, 80], "type": "TCP"}
-    ports = do_post(url, data)
-    json_out.append(ports.text)
-    data = {"operation": "NullScan", "target_ip": host, "ports": [22, 53, 443, 80], "type": "TCP"}
-    ports = do_post(url, data)
-    json_out.append(ports.text)
-    data = {"operation": "FilterPort", "target_ip": host, "ports": [22, 53, 443, 80], "type": "TCP"}
-    ports = do_post(url, data)
-    json_out.append(ports.text)
-    data = {"operation": "WindowScan", "target_ip": host, "ports": [22, 53, 443, 80], "type": "TCP"}
-    ports = do_post(url, data)
-    json_out.append(ports.text)
-    data = {"operation": "Xmasport", "target_ip": host, "ports": [22, 53, 443, 80], "type": "TCP"}
-    ports = do_post(url, data)
-    json_out.append(ports.text)
+    ports = [22, 53, 443, 80]
+    for i in ["TCPConnect", "TCPACKScan", "FinScan", "NullScan", "WindowScan", "Xmasport"]:
+        data = { "operation": i, "target_ip": host, "ports": ports, "type":"TCP" }
+        ports_r = do_post(url, data)
+        json_out.append(ports_r.text)
     return json.dumps(json_out)
 
 
@@ -80,6 +65,21 @@ def generate_report(report_data):
         elif i == 3:
             json_file['os_type'] = val
             out.append(json_file)
+        elif i == 4:
+            json_file['http_header'] = val
+            out.append(json_file)
+        elif i == 5:
+            json_file['banner_grabbing'] = val
+            out.append(json_file)
+        elif i == 6:
+            json_file['fw_detection'] = val
+            out.append(json_file)
+        elif i == 7:
+            json_file['dns_scan'] = val
+            out.append(json_file)
+        elif i == 8:
+            json_file['ipv6_detection'] = val
+            out.append(json_file)
             i = 0
             json_file ={}
         print(json_file)
@@ -95,9 +95,25 @@ def report_2_file(report_data):
     out.write(html)
     out.close()
 
+def get_http_header(host):
+    return ""
+
+def get_banner_grabbing(host):
+    return ""
+
+def get_fw_detection(host):
+    return ""
+
+def get_ipv6_detection(host):
+    return ""
+
+def get_dns_scan(host):
+    return ""
+
 def main():
     print("Init full process")
     target_ip="192.168.1.1/24"
+    ports = [22,80,443]
     hosts = get_host(target_ip)
     report_data = []
     for host in hosts:
@@ -110,6 +126,21 @@ def main():
             os_type = get_os(host)
             report_data.append(os_type)
             print(" os_type : ", os_type)
+            http_header = get_http_header(host)
+            report_data.append(http_header)
+            print(" os_type : ", http_header)
+            banner_grabbing = get_banner_grabbing(host)
+            report_data.append(banner_grabbing)
+            print(" os_type : ", banner_grabbing)
+            dns_scan = get_dns_scan(host)
+            report_data.append(dns_scan)
+            print(" os_type : ", dns_scan)
+            fw_detection = get_fw_detection(host)
+            report_data.append(fw_detection)
+            print(" os_type : ", fw_detection)
+            ipv6_detection = get_ipv6_detection(host)
+            report_data.append(ipv6_detection)
+            print(" os_type : ", ipv6_detection)
     report_2_file(report_data)
     print("End full process")
 
