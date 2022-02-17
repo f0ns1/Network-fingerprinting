@@ -52,10 +52,14 @@ class HTTPHeaderScan():
 
     def do_scan(self):
         output=[]
-        response = http_request(self.target_ip, self.path, self.port)
-        print(response[1].show())
-        if response and response[1]:
-            output = self.parse_output(response)
+        try:
+            response = http_request(self.target_ip, self.path, self.port)
+            print(response[1].show())
+            if response and response[1]:
+                output = self.parse_output(response)
+        except:
+            output.append("host: %s at port: %s is unrechable " % (self.target_ip, str(self.port)))
+            pass
         print(output)
         return output
 

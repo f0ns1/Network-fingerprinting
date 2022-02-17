@@ -22,5 +22,6 @@ urlpatterns = [
     path('operations/bannergrabbing', views.bannergrabbing, name='bannergrabbing'),
     path('operations/fwdetection', views.firewalldetection, name='firewalldetection'),
     path('operations/ipv6scan', views.ipv6scan, name='ipv6scan'),
+    path('operations/fullscan', views.fullscan, name='fullscan'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

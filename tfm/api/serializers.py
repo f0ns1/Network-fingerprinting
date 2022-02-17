@@ -127,3 +127,17 @@ class IPV6ScanSerializer(serializers.Serializer):
     target_ip = serializers.CharField(max_length=200)
     response = serializers.CharField(max_length=2000)
 
+
+class FullSeliazer:
+    def __init__(self, target_ip, ports, response):
+        self.target_ip = target_ip
+        self.ports = ports
+        self.response = response
+
+full_serializer = FullSeliazer(target_ip="", ports="", response="")
+
+
+class FullScanSerializer(serializers.Serializer):
+    target_ip = serializers.CharField(max_length=200)
+    ports = serializers.CharField(max_length=200)
+    response = serializers.CharField(max_length=2000)

@@ -16,7 +16,8 @@
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'app.js' %}"></script>
+    <script src="{% static 'app.js' %}" ></script>
+    <script src="{% static 'scan.js' %}" ></script>
 </head>
 
 <body >
@@ -53,13 +54,19 @@
         <br>
 
         <div align="center" class="opacityform row g-3">
-            <form method = "POST" class="row g-3" >
+            <form id="full_scan_form" name="full_scan_form"  class="row g-3" >
                 <div class="col-md-12">
-                    <label for="inputcommand" class="form-label">Give me your network address: </label>
-                    <input id="inputcommand" type="text" name="inputcommand" class="form-control" value="192.168.1.1/24">
-                    <input type="submit" value="exec" class="form-select btn btn-primary">
+                    <label for="target_ip" class="form-label">Give me your network address: </label>
+                    <input id="target_ip" type="text" name="target_ip" class="form-control" value="192.168.1.1/24">
+                    <input id="ports" type="text" name="ports" class="form-control" value="[22,80,443]">
+                    <button type="submit" class="btn btn-primary my-1" style="margin-left: 60px" onclick="full_scan()">Execute full scan</button>
+
                 </div>
+                <br>
             </form>
+        </div>
+        <div class="opacityform row g-3" id="response" name="response" style="width:90%; display: none;">
+            <p style="align: left;" id="full_scan_response" value="Wait for response"></p>
         </div>
 
     </div>

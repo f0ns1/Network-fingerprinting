@@ -1,3 +1,19 @@
+function full_scan(){
+    var x = document.getElementById("full_scan_form").elements;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("POST", "http://127.0.0.1:8000/api/operations/fullscan");
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.timeout=180000;
+    var obj1 = { target_ip : x[0].value, ports : x[1].value}
+    xmlhttp.send(JSON.stringify(obj1));
+    if (this.readyState == 4 && this.status == 201) {
+            alert(this.responseText)
+            document.getElementById("full_scan_response").innerHTML =
+            this.responseText;
+    }
+
+}
+
 function network_scan_execute(){
     var x = document.getElementById("Network-scan_form").elements;
     var xmlhttp = new XMLHttpRequest();

@@ -43,7 +43,7 @@ class DNSScan():
         output=[]
         for qtype in ["A", "SOA", "MX"]:
             output = self.get_data(sr1(IP(dst=self.target)/UDP(sport=RandShort(), dport=53)
-                            /DNS(rd=1, qd=DNSQR(qname=self.target_ip, qtype=qtype))), qtype, output)
+                            /DNS(rd=1, qd=DNSQR(qname=self.target_ip, qtype=qtype)),timeout=2), qtype, output)
         print("Final output : ", output)
         return output
 

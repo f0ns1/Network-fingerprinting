@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from json2html import *
 from .core.ARPping import ARPPing
 from .serializers import *
@@ -13,6 +14,7 @@ from .core.core.BannerGrabbingScanning.BannerGrabbingScanHandler import BannerGr
 from .core.core.DNSScanning.DNSScanHandler import DNSScanHandler
 from .core.core.FWDetectionScanning.FWDetectionHandler import FWDetectionHandler
 from .core.core.IPV6Scanning.IPV6ScanHandler import IPV6ScanHandler
+from .core.core.FullScan import FullScan
 import json
 
 
@@ -82,6 +84,29 @@ def ipv6scan(request):
         serialized = json.dumps(ans)
         print(serialized)
         serializer = IPV6ScanSerializer(IPV6Seliazer(operation=operation, target_ip=target_ip, response=serialized))
+        if serializer:
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def fullscan(request):
+    if request.method == 'GET':
+        serializer = FullScanSerializer(FullSeliazer(target_ip="", ports=[], response=""))
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        dataJson = json.loads(request.body)
+        print("target_ip: ", dataJson['target_ip'])
+        target_ip = dataJson['target_ip']
+        ports = dataJson['ports']
+        handler = FullScan(ports, target_ip)
+        ans = handler.do_scan()
+        print("Service answer: %s " % ans)
+        serialized = json.dumps(ans)
+        print(serialized)
+        serializer = FullScanSerializer(FullSeliazer(target_ip=target_ip, ports=ports, response=serialized))
         if serializer:
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
